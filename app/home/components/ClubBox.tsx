@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import defjpg from "../../../public/defpic.jpg"
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import clsx from 'clsx';
 
 interface ClubProps {
     createdAt: DateTime,
@@ -12,6 +13,7 @@ interface ClubProps {
     leaderId: string,
     desc: string;
     currentBook?: string
+    leader?: boolean
 }
 
 interface BookProps {
@@ -25,7 +27,7 @@ interface BookProps {
 }
 
 const ClubBox:React.FC<ClubProps> = ({
-    createdAt, image, name, leaderId, desc, currentBook
+    createdAt, image, name, leaderId, desc, currentBook, leader
 }) => {
     const [book, setBook] = useState<BookProps>()
 
@@ -65,7 +67,7 @@ const ClubBox:React.FC<ClubProps> = ({
 
   return (
     <div className='flex gap-10 items-start'>
-        <div>
+        <div className={clsx(leader && "w-[40%]")}>
             {/* Image */}
             <Image 
                 src={image || defjpg}
@@ -76,7 +78,9 @@ const ClubBox:React.FC<ClubProps> = ({
             />
         </div>
 
-        <div className='flex flex-col mt-2'>
+        <div className={
+            clsx('flex flex-col mt-2', leader && "max-w-[60%]")
+        }>
             {/* info */}
             <div>
                 <span className='font-bold'>Name: </span>
