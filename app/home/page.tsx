@@ -77,18 +77,15 @@ const Home = () => {
   }, [])
 
   return (
-    <div className='h-[100%]'>
+    <div className='min-h-[100%]'>
       <NavBar />
 
       <div className='flex gap-4 px-[10%] mt-5 h-[100%]'>
         {/* Books */}
-        <div className='w-[40%] bg-[#f3ece4] rounded-[12px] p-[3%] min-h-[100%] shadow-md shadow-black/40'>
+        <div className='w-[40%] flex flex-col gap-4 bg-[#f3ece4] rounded-[12px] p-[3%] min-h-[100%] shadow-md shadow-black/40'>
           {
             books.map((item) => {
               return (
-                // <div key={item.id}>
-                //   {item.name}
-                // </div>
                 <BookBox key={item.id} name={item.name} image={item.image} author={item.author} pages={item.pages} desc={item.desc}/>
               )
             })
