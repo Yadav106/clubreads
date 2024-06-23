@@ -21,6 +21,11 @@ const NavBar = () => {
                         placeholder="Search books" 
                         className="px-6 py-1 rounded-md border border-gray-300"
                     />
+                    <img 
+                        src="/search.svg" 
+                        alt="Search Icon" 
+                        className="absolute right-3 top-2 w-5 h-5 text-gray-400"
+                    />
                 </div>
             </div>
             <UserImage />
