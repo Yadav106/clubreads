@@ -27,8 +27,8 @@ const Users = () => {
         axios.post(
             '/api/clubs/create',
             {
-                name: "New Club",
-                desc: "Testing Club Creation"
+                name: "Another Club",
+                desc: "Testing More Club Creation"
             }
         )
     }

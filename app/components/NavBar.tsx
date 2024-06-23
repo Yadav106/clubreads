@@ -1,14 +1,18 @@
+"use client"
+
 import React from 'react'
 import UserImage from './UserImage'
+import { useRouter } from 'next/navigation'
 
 const NavBar = () => {
+    const router = useRouter()
   return (
     <div className='h-[50px] bg-[#f3ece4] mt-[1rem] w-[80vw] mx-[10vw] rounded-[12px] px-5 flex justify-between items-center shadow-sm shadow-black/40'>
         <div className='flex gap-5'>
-            <div className='hover:font-bold cursor-pointer'>
+            <div className='hover:font-bold cursor-pointer' onClick={() => router.push('/home')}>
                 Home
             </div>
-            <div className='hover:font-bold cursor-pointer'>
+            <div className='hover:font-bold cursor-pointer' onClick={() => router.push('/clubs')}>
                 Clubs
             </div>
         </div>

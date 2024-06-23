@@ -28,8 +28,22 @@ const ClubBox:React.FC<ClubProps> = ({
     createdAt, image, name, leaderId, desc, currentBook
 }) => {
     const [book, setBook] = useState<BookProps>()
+
     useEffect(() => {
         async function getBookById() {
+            if (!currentBook) {
+                const nullBook: BookProps = {
+                    id: "404",
+                    name: "Not reading anything",
+                    author: "Dev",
+                    desc: "Null book desc",
+                    pages: 404,
+                    clubId: "404"
+                }
+                setBook(nullBook)
+                return
+            }
+
             try {
                 const response = await axios.post(
                     '/api/books/getBookById',
@@ -37,9 +51,7 @@ const ClubBox:React.FC<ClubProps> = ({
                         bookId: currentBook
                     }
                 )
-    
                 const data = response.data
-                console.log(data)
                 setBook(data)
             } catch (err) {
                 console.log(err)
@@ -50,6 +62,7 @@ const ClubBox:React.FC<ClubProps> = ({
 
         getBookById()
     }, [currentBook])
+
   return (
     <div className='flex gap-10 items-start'>
         <div>
@@ -82,7 +95,7 @@ const ClubBox:React.FC<ClubProps> = ({
 
             <div>
                 <span className='font-bold'>Created at: </span>
-                {new Date("2024-06-23T15:21:40.528Z").getDate()}/{new Date("2024-06-23T15:21:40.528Z").getMonth()}
+                {new Date(createdAt).getDate()}/{new Date(createdAt).getMonth()}
             </div>
         </div>
     </div>

@@ -6,6 +6,7 @@ import { DateTime } from 'next-auth/providers/kakao';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import ClubBox from './components/ClubBox';
+import BookBox from './components/BookBox';
 
 interface BookProps {
   id : string,
@@ -13,7 +14,7 @@ interface BookProps {
   name : string,
   author : string,
   desc : string,
-  pages : Number,
+  pages : number,
   clubId : string
 }
 
@@ -33,11 +34,39 @@ const Home = () => {
   const [clubs, setClubs] = useState<ClubProps[]>([])
 
   useEffect(() => {
+    async function getBookById(currentBooks:string[]) {
+      const newBooks = await Promise.all(currentBooks.map(async (currentBook) => {
+        if (currentBook) {
+          try {
+            const response = await axios.post(
+              '/api/books/getBookById',
+              {
+                  bookId: currentBook
+              }
+            )
+            return response.data
+          } catch (err) {
+              console.log(err)
+              toast.error("Something went wrong while getting book info")
+              return null
+          }
+        }
+        return null;
+      }));
+    
+      setBooks(newBooks.filter(book => book !== null));
+    }
+
     async function getClubs() {
       try {
         const response = await axios.get('/api/clubs/myclubs')
         const clubs = response.data
         setClubs(clubs)
+        let bookArr:string[] = []
+        clubs.forEach((item:ClubProps) => {
+          bookArr.push(item.currentBook || "")
+        })
+        getBookById(bookArr)
       } catch (error) {
         console.log(error)
         toast.error("Erorr while fetching clubs")
@@ -50,34 +79,24 @@ const Home = () => {
   return (
     <div className='h-[100%]'>
       <NavBar />
-      {/* <div style={{ display: 'flex', justifyContent: 'space-between', padding: '20px' }}>
-        <div style={boxStyle}></div>
-        <div style={boxStyle}></div>
-      </div> */}
 
       <div className='flex gap-4 px-[10%] mt-5 h-[100%]'>
         {/* Books */}
-        <div className='w-[40%] bg-[#f3ece4] rounded-[12px] min-h-[100%] shadow-md shadow-black/40'>
-
+        <div className='w-[40%] bg-[#f3ece4] rounded-[12px] p-[3%] min-h-[100%] shadow-md shadow-black/40'>
+          {
+            books.map((item) => {
+              return (
+                // <div key={item.id}>
+                //   {item.name}
+                // </div>
+                <BookBox key={item.id} name={item.name} image={item.image} author={item.author} pages={item.pages} desc={item.desc}/>
+              )
+            })
+          }
         </div>
 
         {/* My Clubs */}
         <div className='w-[75%] bg-[#f3ece4] rounded-[12px] p-[3%] flex flex-col gap-5 shadow-md shadow-black/40'>
-          {
-            clubs.map((item) => {
-              return (
-                <ClubBox 
-                  key={item.id}
-                  image={item.image}
-                  name={item.name}
-                  leaderId={item.leaderId}
-                  createdAt={item.createdAt}
-                  currentBook={item.currentBook}
-                  desc={item.desc}
-                />
-              )
-            })
-          }
           {
             clubs.map((item) => {
               return (
@@ -99,16 +118,4 @@ const Home = () => {
   );
 };
 
-const boxStyle = {
-  flex: 1,
-  height: '800px',
-  borderRadius: '10px',
-  backgroundColor: '#f0f0f0',
-  boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-  margin: '10px',
-};
-
 export default Home;
-
-
-// bg-[#f0c19d]
