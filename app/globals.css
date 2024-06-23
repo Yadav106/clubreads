@@ -8,3 +8,36 @@ body,
   height: 100%;
   /* background-color: #f5ddcb; */
 }
+
+.nav-item {
+    position: relative;
+    display: inline-block;
+    z-index: 1; /* Ensure text is above pseudo-element */
+}
+
+.nav-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    border-radius: 0.25rem;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: none; /* Remove transition for immediate effect */
+    z-index: -1; /* Place pseudo-element behind text */
+}
+
+.nav-item:hover::before {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+    transition: none; /* Remove transition for immediate effect */
+}
+
+.nav-item:hover {
+    font-weight: bold;
+    color: #f3ece4 !important; /* Ensure text color changes on hover */
+    z-index: 1; /* Ensure text remains above pseudo-element */
+}
