@@ -4,6 +4,7 @@ import axios from "axios";
 import { signOut } from "next-auth/react";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import UserButton from "./components/UserButton";
 
 const Users = () => {
 
@@ -52,6 +53,7 @@ const Users = () => {
             <button onClick={() => joinClub()}>
                 Join Club
             </button>
+            <UserButton />
         </>
      );
 }
