@@ -40,6 +40,17 @@ const ClubBox:React.FC<ClubProps> = ({
     const [bookPages, setBookPages] = useState("")
     const [bookDesc, setBookDesc] = useState("")
 
+    async function finishBook() {
+        await axios.post(
+            '/api/clubs/finishBook',
+            {
+                clubId: id
+            }
+        )
+
+        location.reload()
+    }
+
     async function addBook() {
         await axios.post(
             '/api/books/add',
@@ -138,11 +149,17 @@ const ClubBox:React.FC<ClubProps> = ({
             </div>
 
             {
-                leader && (book?.name === "Not reading anything") &&
+                (leader && (book?.name === "Not reading anything")) ?
                 (
                     <div>
                         <button className='bg-green-400 rounded-md h-[30px] px-2' onClick={() => setShowAddBook(state => !state)}>
                             {showAddBook ? "Cancel" : "Add Book"}
+                        </button>
+                    </div>
+                ) : leader && (
+                    <div>
+                        <button className='bg-yellow-400 rounded-md h-[30px] px-2' onClick={() => finishBook()}>
+                            Finish Book
                         </button>
                     </div>
                 )

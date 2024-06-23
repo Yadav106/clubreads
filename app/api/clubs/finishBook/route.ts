@@ -23,7 +23,7 @@ export async function POST(
         const updatedClub = await prisma.club.update({
             where : {id: clubId},
             data : {
-                currentBook: ""
+                currentBook: null
             }
         })
 
