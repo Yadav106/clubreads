@@ -8,7 +8,7 @@ export async function POST(
     try {
         const currentUser = await getCurrentUser();
         const body = await request.json();
-        const {
+        let {
             name,
             author,
             desc,
@@ -23,6 +23,8 @@ export async function POST(
         if (!name || !desc || !author || !pages || !clubId) {
             return new NextResponse(('Data missing'), { status: 400 });
         }
+
+        pages = parseInt(pages)
 
         const newBook = await prisma.book.create({
             data: {

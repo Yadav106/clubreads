@@ -26,6 +26,8 @@ const Clubs = () => {
   const [name, setName] = useState("")
   const [desc, setDesc] = useState("")
 
+  const [joinedClubs, setJoinedClubs] = useState<string[]>([])
+
   const router = useRouter()
 
   useEffect(() => {
@@ -41,6 +43,18 @@ const Clubs = () => {
       setAllClubs(data)
     }
 
+    async function getClubs() {
+      try {
+        const response = await axios.get('/api/clubs/myclubs')
+        const clubs = response.data
+        const joinedClubIds = clubs.map((item:ClubProps) => item.id)
+        setJoinedClubs(joinedClubIds)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    getClubs()
     getOwnedClubs()
     getAllClubs()
   }, [])
@@ -89,6 +103,7 @@ const Clubs = () => {
               return (
                 <ClubBox 
                   key={item.id}
+                  id={item.id}
                   image={item.image}
                   name={item.name}
                   leaderId={item.leaderId}
@@ -109,12 +124,15 @@ const Clubs = () => {
                 return (
                   <ClubBox 
                     key={item.id}
+                    id={item.id}
                     image={item.image}
                     name={item.name}
                     leaderId={item.leaderId}
                     createdAt={item.createdAt}
                     currentBook={item.currentBook}
                     desc={item.desc}
+                    join
+                    joinedClubIds={joinedClubs}
                   />
                 )
               })
