@@ -37,9 +37,24 @@ const Users = () => {
         axios.post(
             '/api/clubs/join',
             {
-                clubId: "6677eb4f54ba40b309b33aad"
+                clubId: "66783d84e269e93843463777"
             }
         )
+    }
+
+    async function addBook() {
+        axios.post(
+            '/api/books/add',
+            {
+                clubId: "66783d84e269e93843463777",
+                name: "White Nights",
+                author: "Fyodor Dostoevsky",
+                desc: "Our young nameless loner protagnist meets a lady who tells him not to fall in love with her as she loves someone else, but he still falls in love with her.",
+                pages: 100,
+            }
+        ).catch((err:any) => {
+            console.log(err)
+        }) 
     }
 
     return ( 
@@ -52,7 +67,10 @@ const Users = () => {
             </button><br /><br />
             <button onClick={() => joinClub()}>
                 Join Club
-            </button>
+            </button><br /><br />
+            <button onClick={() => addBook()}>
+                Add Book
+            </button><br /><br />
             <UserButton />
         </>
      );
