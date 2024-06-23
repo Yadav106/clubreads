@@ -5,10 +5,10 @@ const NavBar = () => {
   return (
     <div className='h-[50px] bg-[#f0c19d] mt-[1rem] w-[80vw] mx-[10vw] rounded-full px-5 flex justify-between items-center'>
         <div className='flex gap-5'>
-            <div>
+            <div className='hover:font-bold cursor-pointer'>
                 Home
             </div>
-            <div>
+            <div className='hover:font-bold cursor-pointer'>
                 Clubs
             </div>
         </div>
