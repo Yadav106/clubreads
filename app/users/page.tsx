@@ -42,6 +42,19 @@ const Users = () => {
         )
     }
 
+    async function getMyClubs() {
+        axios.get('/api/clubs/myclubs')
+    }
+
+    async function findBook() {
+        axios.post(
+            '/api/books/getBookById',
+            {
+                bookId: "66783fc1705c92b19342e7b4"
+            }
+        )
+    }
+
     async function addBook() {
         axios.post(
             '/api/books/add',
@@ -70,6 +83,12 @@ const Users = () => {
             </button><br /><br />
             <button onClick={() => addBook()}>
                 Add Book
+            </button><br /><br />
+            <button onClick={() => getMyClubs()}>
+                My Clubs
+            </button><br /><br />
+            <button onClick={() => findBook()}>
+                Find Book
             </button><br /><br />
             <UserButton />
         </>
