@@ -145,7 +145,7 @@ const ClubBox:React.FC<ClubProps> = ({
 
             <div>
                 <span className='font-bold'>Created at: </span>
-                {new Date(createdAt).getDate()}/{new Date(createdAt).getMonth()}
+                {new Date(createdAt).getDate()}/{new Date(createdAt).getMonth()+1}
             </div>
 
             {
