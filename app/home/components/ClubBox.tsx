@@ -5,6 +5,7 @@ import defjpg from "../../../public/defpic.jpg"
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
 
 interface ClubProps {
     createdAt: DateTime,
@@ -32,6 +33,8 @@ interface BookProps {
 const ClubBox:React.FC<ClubProps> = ({
     createdAt, image, name, leaderId, desc, currentBook, leader, id, join, joinedClubIds
 }) => {
+    const router = useRouter()
+
     const [book, setBook] = useState<BookProps>()
     const [showAddBook, setShowAddBook] = useState<boolean>(false)
 
@@ -120,7 +123,8 @@ const ClubBox:React.FC<ClubProps> = ({
                 alt='club image'
                 width={100}
                 height={100}
-                className='rounded-full border-black border-solid border-4'
+                className='rounded-full border-black border-solid border-4 cursor-pointer'
+                onClick={() => router.push(`/clubs/${id}`)}
             />
         </div>
 

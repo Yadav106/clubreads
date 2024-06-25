@@ -4,7 +4,15 @@ import React from 'react'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image';
 
-const UserImage = () => {
+interface UserImageProps {
+    setShowMore: (state:boolean) => void,
+    showMore: boolean
+}
+
+const UserImage:React.FC<UserImageProps> = ({
+    setShowMore,
+    showMore
+}) => {
     const session = useSession();
     return (
         <div>
@@ -15,7 +23,8 @@ const UserImage = () => {
                     alt="profile"
                     width={40}
                     height={40}
-                    className='rounded-full'
+                    className='rounded-full cursor-pointer'
+                    onClick={() => setShowMore(!showMore)}
                 />
             }
         </div>

@@ -20,8 +20,8 @@ const BookBox:React.FC<BookProps> = ({
             <Image 
                 src={image || defjpg}
                 alt='club image'
-                width={1000}
-                height={1000}
+                width={100}
+                height={100}
                 className='rounded-md border-black border-solid border-4'
             />
         </div>
